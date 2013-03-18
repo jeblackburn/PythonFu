@@ -52,11 +52,7 @@ def front_back(a, b):
   b_tokenpos = len(b)/2 
   if len(b) % 2 != 0: b_tokenpos += 1
 
-  a_front = a[:a_tokenpos] 
-  b_front = b[:b_tokenpos]
-  a_back = a[a_tokenpos:] 
-  b_back = b[b_tokenpos:]
-  return a_front + b_front + a_back + b_back
+  return a[:a_tokenpos] + b[:b_tokenpos] + a[a_tokenpos:] + b[b_tokenpos:]
 
 
 # Simple provided test() function used in main() to print
