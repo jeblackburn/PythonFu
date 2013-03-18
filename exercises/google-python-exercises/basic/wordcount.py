@@ -38,24 +38,55 @@ print_words() and print_top().
 """
 
 import sys
-
+import re
+import string
+from operator import itemgetter
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
 
+def get_word_dictionary(filename):
+    word_dict = dict()
+    with open(filename) as file:
+        for line in file:
+            words = re.findall("\w(?<!\d)[\w'-]*", line)
+            for word in words:
+                word = word.lower()
+                if word in word_dict:
+                    word_dict[word] = word_dict[word] + 1
+                else:
+                    word_dict[word] = 1
+    
+    return word_dict
+
+def print_words(filename):
+    word_dict = get_word_dictionary(filename)
+                    
+#    for keyval in sorted(word_dict.iteritems()):
+#        print "{} {}".format(keyval[0], keyval[1])
+
+def print_top(filename):
+    word_dict = get_word_dictionary(filename)
+
+    x = 0
+    for popular in sorted(word_dict.iteritems(), key=itemgetter(1, 0), reverse=True):
+        print "{} {}".format(popular[0], popular[1])
+        x += 1
+        if x >= 20: break
+
 ###
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
 def main():
-  if len(sys.argv) != 3:
-    print 'usage: ./wordcount.py {--count | --topcount} file'
-    sys.exit(1)
+#  if len(sys.argv) != 3:
+#    print 'usage: ./wordcount.py {--count | --topcount} file'
+#    sys.exit(1)
 
-  option = sys.argv[1]
-  filename = sys.argv[2]
+  option = "--topcount"
+  filename = "wordcount.py"
   if option == '--count':
     print_words(filename)
   elif option == '--topcount':
