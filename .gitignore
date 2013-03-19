@@ -1,0 +1,19 @@
+
+     
+*py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+__pycache__
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+.project
+.pydevproject
